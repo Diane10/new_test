@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use("Agg")
 
-# load Vectorizer For Gender Prediction
-news_vectorizer = open("final_news_cv_vectorizer.pkl","rb")
+
+news_vectorizer = open("models/final_news_cv_vectorizer.pkl","rb")
 news_cv = joblib.load(news_vectorizer)
 
 def load_prediction_models(model_file):
@@ -46,24 +46,24 @@ def main():
 		all_ml_models = ["LR","RFOREST","NB","DECISION_TREE"]
 		model_choice = st.selectbox("Select Model",all_ml_models)
 
-		prediction_labels = {'business': 0,'tech': 1,'sport': 2,'health': 3,'politics': 4,'entertainment': 5}
+		prediction_labels = {'business': 0,'sport': 2,'politics': 4,'celebreties': 5}
 		if st.button("Classify"):
 			st.text("Original Text::\n{}".format(news_text))
 			vect_text = news_cv.transform([news_text]).toarray()
 			if model_choice == 'LR':
-				predictor = load_prediction_models("newsclassifier_Logit_model.pkl")
+				predictor = load_prediction_models("models/newsclassifier_Logit_model.pkl")
 				prediction = predictor.predict(vect_text)
 				# st.write(prediction)
 			elif model_choice == 'RFOREST':
-				predictor = load_prediction_models("newsclassifier_RFOREST_model.pkl")
+				predictor = load_prediction_models("models/newsclassifier_RFOREST_model.pkl")
 				prediction = predictor.predict(vect_text)
 				# st.write(prediction)
 			elif model_choice == 'NB':
-				predictor = load_prediction_models("newsclassifier_NB_model.pkl")
+				predictor = load_prediction_models("models/newsclassifier_NB_model.pkl")
 				prediction = predictor.predict(vect_text)
 				# st.write(prediction)
 			elif model_choice == 'DECISION_TREE':
-				predictor = load_prediction_models("newsclassifier_CART_model.pkl")
+				predictor = load_prediction_models("models/newsclassifier_CART_model.pkl")
 				prediction = predictor.predict(vect_text)
 				# st.write(prediction)
 
